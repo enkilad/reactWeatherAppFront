@@ -48,8 +48,6 @@ export class Registration extends React.Component {
       password: this.state.password
     };
 
-    console.log(user);
-
     axios
       .post('http://localhost:5000/register', user)
       .then(res => console.log(res.data));
