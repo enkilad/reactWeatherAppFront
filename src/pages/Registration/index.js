@@ -1,12 +1,64 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-export class Registration extends Component {
+export class Registration extends React.Component {
+  state = {
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  };
+
+  onChangeUsername = e => {
+    this.setState({
+      username: e.target.value
+    });
+  };
+
+  onChangeEmail = e => {
+    this.setState({
+      email: e.target.value
+    });
+  };
+
+  onChangePassword = e => {
+    this.setState({
+      password: e.target.value
+    });
+  };
+
+  onChangeConfirmPassword = e => {
+    if (this.state.password !== this.state.confirmPassword) {
+      console.log("don't match");
+    } else {
+      this.setState({
+        confirmPassword: e.target.value
+      });
+    }
+  };
+
+  onSubmit = e => {
+    e.preventDefault();
+
+    const user = {
+      username: this.state.username,
+      email: this.state.email,
+      password: this.state.password
+    };
+
+    console.log(user);
+
+    axios
+      .post('http://localhost:5000/register', user)
+      .then(res => console.log(res.data));
+  };
+
   render() {
     return (
       <div className="d-flex flex-column align-items-center">
-        <Form>
+        <Form onSubmit={this.onSubmit}>
           <FormGroup>
             <Label for="username">Username</Label>
             <Input
@@ -14,11 +66,20 @@ export class Registration extends Component {
               name="username"
               id="username"
               placeholder="Username"
+              required
+              onChange={this.onChangeUsername}
             />
           </FormGroup>
           <FormGroup>
             <Label for="email">Email</Label>
-            <Input type="email" name="email" id="email" placeholder="Email" />
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Email"
+              required
+              onChange={this.onChangeEmail}
+            />
           </FormGroup>
           <FormGroup>
             <Label for="password">Password</Label>
@@ -27,6 +88,8 @@ export class Registration extends Component {
               name="password"
               id="password"
               placeholder="Enter a password"
+              required
+              onChange={this.onChangePassword}
             />
           </FormGroup>
           <FormGroup>
@@ -36,10 +99,12 @@ export class Registration extends Component {
               name="confirmPassword"
               id="confirmPassword"
               placeholder="Your passwords should match"
+              required
+              onChange={this.onChangeConfirmPassword}
             />
           </FormGroup>
           <div className="text-center">
-            <Button color="primary" className="w-100">
+            <Button color="primary" className="w-100" onSubmit={this.onSubmit}>
               Register
             </Button>
             <Link to="/login">Have an account? Log in!</Link>
