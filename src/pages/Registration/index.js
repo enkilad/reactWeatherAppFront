@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
@@ -8,7 +9,8 @@ export class Registration extends React.Component {
     username: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    error: ''
   };
 
   onChangeUsername = e => {
@@ -30,13 +32,9 @@ export class Registration extends React.Component {
   };
 
   onChangeConfirmPassword = e => {
-    if (this.state.password !== this.state.confirmPassword) {
-      console.log("don't match");
-    } else {
-      this.setState({
-        confirmPassword: e.target.value
-      });
-    }
+    this.setState({
+      confirmPassword: e.target.value
+    });
   };
 
   onSubmit = e => {
@@ -48,9 +46,21 @@ export class Registration extends React.Component {
       password: this.state.password
     };
 
+    // console.log(user);
+
+    // async () => {
+    //   try {
+    //     const res = await axios.post('http://localhost:5000/register', user);
+    //     this.props.history.replace('/login');
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // };
+
     axios
       .post('http://localhost:5000/register', user)
-      .then(res => console.log(res.data));
+      .then(this.props.history.replace('/login'))
+      .catch(err => console.log(err));
   };
 
   render() {

@@ -1,6 +1,8 @@
 import React from 'react';
 import Autocomplete from 'react-google-autocomplete';
 import { axiosClient } from '../../api';
+import { connect } from 'react-redux';
+// import { signIn, signOut } from '../../redux/actions/';
 
 class Weather extends React.Component {
   state = { weatherList: [] };
@@ -47,9 +49,9 @@ class Weather extends React.Component {
             </tr>
           </thead>
           <tbody id="weather-table">
-            {this.state.weatherList.map(({ date, temp, weather }) => {
+            {this.state.weatherList.map(({ date, temp, weather }, id) => {
               return (
-                <tr>
+                <tr key={id}>
                   <td>{date}</td>
                   <td>{temp}</td>
                   <td>{weather}</td>
@@ -63,4 +65,11 @@ class Weather extends React.Component {
   }
 }
 
-export default Weather;
+const mapStateToProps = state => {
+  return { isSignedIn: state.auth.isSignedIn };
+};
+
+export default connect(
+  mapStateToProps,
+  {} // signIn, signOut
+)(Weather);
