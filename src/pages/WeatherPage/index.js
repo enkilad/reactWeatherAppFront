@@ -1,43 +1,21 @@
 import React from 'react';
 import Autocomplete from 'react-google-autocomplete';
-import { axiosClient } from '../../api';
 import { connect } from 'react-redux';
-// import { signIn, signOut } from '../../redux/actions/';
+import { getWeather } from '../../redux/actions/weatherActions';
 
 class Weather extends React.Component {
-  state = { weatherList: [] };
-
-  fetchWeather = async (lat, lon) => {
-    try {
-      const response = await axiosClient.get(
-        `/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&appid=2b7a8efd8eef6e6ca7dbd4539f13bb02`
-      );
-      const weatherList = response.data.list.map(obj => {
-        let temp = Math.floor(obj.main.temp);
-        const date = obj.dt_txt;
-        const weather = obj.weather[0].main;
-        if (+temp > 0) {
-          temp = `+${temp}`;
-        }
-        return { temp, date, weather };
-      });
-      this.setState({ weatherList });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // autocompFunc = () => {};
-
   render() {
     return (
       <div>
         <Autocomplete
           className="form-control"
           onPlaceSelected={place => {
+            if (!place.geometry) {
+              return;
+            }
             const lat = place.geometry.location.lat();
-            const lon = place.geometry.location.lng();
-            this.fetchWeather(lat, lon);
+            const lng = place.geometry.location.lng();
+            this.props.getWeather(lat, lng, place.formatted_adress);
           }}
         />
         <table className="table">
@@ -49,7 +27,7 @@ class Weather extends React.Component {
             </tr>
           </thead>
           <tbody id="weather-table">
-            {this.state.weatherList.map(({ date, temp, weather }, id) => {
+            {this.props.weatherList.map(({ date, temp, weather }, id) => {
               return (
                 <tr key={id}>
                   <td>{date}</td>
@@ -65,11 +43,13 @@ class Weather extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { };
-};
+const mapStateToProps = state => ({
+  weatherList: state.weather.weather.list
+});
+
+const actions = { getWeather };
 
 export default connect(
-  null,
-  {} // signIn, signOut
+  mapStateToProps,
+  actions
 )(Weather);

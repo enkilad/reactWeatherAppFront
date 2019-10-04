@@ -1,15 +1,22 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { EditButton } from '../../shared/EditButton';
+import { getUser } from '../../redux/actions/userActions';
 
-export class Profile extends React.Component {
+class Profile extends React.Component {
+  componentDidMount() {
+    this.props.getUser();
+  }
+
   render() {
+    const { user } = this.props;
     return (
       <div className="d-flex flex-column align-items-center">
         <div>
-          <span>Email: {}</span>
+          <span>Email: {user.email}</span>
         </div>
         <div>
-          <span>Username: {}</span>
+          <span>Username: {user.username}</span>
           <EditButton />
         </div>
         <div>
@@ -20,3 +27,14 @@ export class Profile extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { user: state.users };
+};
+
+const actions = { getUser };
+
+export const ProfilePage = connect(
+  mapStateToProps,
+  actions
+)(Profile);

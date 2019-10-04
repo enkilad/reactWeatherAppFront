@@ -1,8 +1,12 @@
 import axios from 'axios';
 
-export const axiosClient = axios.create({
+export const axiosWeatherClient = axios.create({
   baseURL: 'https://api.openweathermap.org/'
 });
+
+export const axiosClient = axios.create({
+  baseURL: 'http://localhost:5000/'
+})
 
 export const setToken = token => {
   localStorage.setItem('token', token);
