@@ -66,10 +66,10 @@ class Weather extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { isSignedIn: state.auth.isSignedIn };
+  return { };
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   {} // signIn, signOut
 )(Weather);
