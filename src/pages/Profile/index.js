@@ -2,9 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { EditButton } from '../../shared/EditButton';
 import { getUser } from '../../redux/actions/userActions';
+import { getToken } from '../../api';
 
 class Profile extends React.Component {
   componentDidMount() {
+    if (getToken()) {
+      this.props.history.replace('/');
+    }
     this.props.getUser();
   }
 

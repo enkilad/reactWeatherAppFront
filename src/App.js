@@ -1,34 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-// import axios from 'axios';
 import Weather from './pages/WeatherPage';
 import Registration from './pages/Registration';
 import Login from './pages/Login';
 import { ProfilePage } from './pages/Profile';
-import { setToken, getToken } from './api';
+import { getToken } from './api';
 import Navbar from './shared/Navbar';
 
 class App extends React.Component {
-  isUserLoggedIn = () => {
-    if (setToken() && getToken()) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-  //   const res = await axios.post('http://localhost:5000/login');
-  //   if (res) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // };
-
   render() {
     return (
       <div className="container">
         <Router>
-          {this.isUserLoggedIn && <Navbar />}
+          {getToken && <Navbar />}
           <Switch>
             <Route component={Registration} path="/" exact />
             <Route component={Weather} path="/weather" />

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { connect } from 'react-redux';
 
 export class Registration extends React.Component {
   state = {
@@ -124,3 +124,11 @@ export class Registration extends React.Component {
 }
 
 export default Registration;
+
+// const mapStateToProps = state => {
+//   return {};
+// };
+
+// export default connect(
+//   mapStateToProps
+// )(Registration);

@@ -1,9 +1,16 @@
 import React from 'react';
 import Autocomplete from 'react-google-autocomplete';
 import { connect } from 'react-redux';
+import { getToken } from '../../api';
 import { getWeather } from '../../redux/actions/weatherActions';
 
 class Weather extends React.Component {
+  componentDidMount() {
+    if (getToken()) {
+      this.props.history.replace('/');
+    }
+  }
+
   render() {
     return (
       <div>
