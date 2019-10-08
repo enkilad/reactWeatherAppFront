@@ -6,10 +6,9 @@ import { getToken } from '../../api';
 
 class Profile extends React.Component {
   componentDidMount() {
-    if (getToken()) {
+    if (!getToken()) {
       this.props.history.replace('/');
     }
-    this.props.getUser();
   }
 
   render() {

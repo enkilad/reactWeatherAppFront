@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
+import { signUp } from '../../redux/actions/userActions';
 
 export class Registration extends React.Component {
   state = {
@@ -37,36 +37,27 @@ export class Registration extends React.Component {
     });
   };
 
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault();
 
-    const user = {
-      username: this.state.username,
-      email: this.state.email,
-      password: this.state.password
-    };
+    try {
+      const formValues = {
+        username: this.state.username,
+        email: this.state.email,
+        password: this.state.password
+      };
 
-    // console.log(user);
-
-    // async () => {
-    //   try {
-    //     const res = await axios.post('http://localhost:5000/register', user);
-    //     this.props.history.replace('/login');
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // };
-
-    axios
-      .post('http://localhost:5000/register', user)
-      .then(this.props.history.replace('/login'))
-      .catch(err => console.log(err));
+      await this.props.signUp(formValues);
+      this.props.history.replace('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
     return (
       <div className="d-flex flex-column align-items-center">
-        <Form onSubmit={this.onSubmit}>
+        <Form onSubmit={this.onSubmit} role="form" data-toggle="validator">
           <FormGroup>
             <Label for="username">Username</Label>
             <Input
@@ -123,12 +114,7 @@ export class Registration extends React.Component {
   }
 }
 
-export default Registration;
-
-// const mapStateToProps = state => {
-//   return {};
-// };
-
-// export default connect(
-//   mapStateToProps
-// )(Registration);
+export default connect(
+  null,
+  { signUp }
+)(Registration);

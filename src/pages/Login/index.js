@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { signIn } from '../../redux/actions/userActions';
 
 class Login extends React.Component {
   state = {
@@ -22,18 +22,20 @@ class Login extends React.Component {
     });
   };
 
-  onSubmit = e => {
+  onSubmit = async e => {
     e.preventDefault();
 
-    const user = {
-      email: this.state.email,
-      password: this.state.password
-    };
-
-    axios
-      .post('http://localhost:5000/login', user)
-      .then(this.props.history.replace('/weather'))
-      .catch(err => console.log(err));
+    try {
+      const formValues = {
+        email: this.state.email,
+        password: this.state.password
+      };
+  
+      await this.props.signIn(formValues);
+      this.props.history.replace('/weather');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -74,12 +76,7 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
-
-// const mapStateToProps = state => {
-//   return { loginStatus: state };
-// };
-
-// export default connect(
-//   mapStateToProps
-// )(Login);
+export default connect(
+  null,
+  { signIn }
+)(Login);

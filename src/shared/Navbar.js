@@ -10,6 +10,7 @@ import {
   Button
 } from 'reactstrap';
 import styled from 'styled-components';
+import history from '../history';
 
 const NavItemStyled = styled(NavItem)`
   padding: 0.5rem;
@@ -37,6 +38,7 @@ export default class Example extends React.Component {
 
   onLogOut = () => {
     localStorage.clear();
+    history.location.push('/');
   };
 
   render() {
@@ -44,7 +46,7 @@ export default class Example extends React.Component {
       <div>
         <Navbar color="light" light expand="md">
           <NavbarBrand>
-            <LinkStyled to="/">Weather React App</LinkStyled>
+            <LinkStyled to="/">React Weather App</LinkStyled>
           </NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
@@ -56,10 +58,10 @@ export default class Example extends React.Component {
                 <LinkStyled to="/weather">Weather</LinkStyled>
               </NavItemStyled>
               <NavItemStyled>
-                <LinkStyled to="/">History List</LinkStyled>
+                <LinkStyled to="/history-list">History List</LinkStyled>
               </NavItemStyled>
               <NavItemStyled>
-                <LinkStyled to="/">History Details</LinkStyled>
+                <LinkStyled to="/history-details">History Details</LinkStyled>
               </NavItemStyled>
               <NavItem>
                 <Button onClick={this.onLogOut}>Log Out</Button>

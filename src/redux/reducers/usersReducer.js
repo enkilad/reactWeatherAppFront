@@ -1,8 +1,8 @@
 import { SIGN_IN, SIGN_OUT, GET_USER } from '../actions/types';
 
 const INITIAL_STATE = {
-  username: null,
-  password: null
+  email: '',
+  password: ''
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -10,15 +10,15 @@ export default (state = INITIAL_STATE, action) => {
     case SIGN_IN:
       return {
         ...state,
-        username: action.payload.username,
+        email: action.payload.email,
         password: action.payload.password
       };
     case SIGN_OUT:
-      return { ...state, username: '', password: '' };
+      return { ...state, email: '', password: '' };
     case GET_USER:
       return {
         ...state,
-        username: action.payload.username,
+        email: action.payload.email,
         password: action.payload.password
       };
     default:

@@ -6,7 +6,7 @@ import { getWeather } from '../../redux/actions/weatherActions';
 
 class Weather extends React.Component {
   componentDidMount() {
-    if (getToken()) {
+    if (!getToken()) {
       this.props.history.replace('/');
     }
   }
