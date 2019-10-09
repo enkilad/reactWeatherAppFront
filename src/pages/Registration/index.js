@@ -48,7 +48,7 @@ export class Registration extends React.Component {
       };
 
       await this.props.signUp(formValues);
-      this.props.history.replace('/');
+      this.props.history.replace('/login');
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +57,7 @@ export class Registration extends React.Component {
   render() {
     return (
       <div className="d-flex flex-column align-items-center">
-        <Form onSubmit={this.onSubmit} role="form" data-toggle="validator">
+        <Form onSubmit={this.onSubmit}>
           <FormGroup>
             <Label for="username">Username</Label>
             <Input

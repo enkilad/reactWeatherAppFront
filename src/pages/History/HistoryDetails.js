@@ -1,7 +1,9 @@
 import React from 'react';
 import { getToken } from '../../api';
+import { connect } from 'react-redux';
+import { getHistoryDetails } from '../../redux/actions/historyDetailsActions';
 
-export default class HistoryDetails extends React.PureComponent {
+class HistoryDetails extends React.PureComponent {
   componentDidMount() {
     if (!getToken()) {
       this.props.history.replace('/');
@@ -15,3 +17,8 @@ export default class HistoryDetails extends React.PureComponent {
     );
   }
 }
+
+export default connect(
+  null,
+  { getHistoryDetails }
+)(HistoryDetails);

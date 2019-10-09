@@ -38,7 +38,7 @@ export default class Example extends React.Component {
 
   onLogOut = () => {
     localStorage.clear();
-    history.location.push('/');
+    history.replace('/');
   };
 
   render() {
