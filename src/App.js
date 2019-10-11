@@ -8,16 +8,17 @@ import HistoryDetails from './pages/History/HistoryDetails';
 import { ProfilePage } from './pages/Profile';
 import { getToken } from './api';
 import Navbar from './shared/Navbar';
+import { signIn } from './redux/actions/userActions';
+import { connect } from 'react-redux';
 
 class App extends React.Component {
+  componentDidMount() {}
   render() {
     return (
       <div className="container">
         <Router>
-          {{
-            /* getToken()  */
-          } && <Navbar />}
-          {/* works only after a page reload */}
+          {/* {this.props.isUserLoggedIn && */}
+          <Navbar />
           <Switch>
             <Route component={Registration} path="/" exact />
             <Route component={Weather} path="/weather" />
@@ -33,4 +34,13 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    isUserLoggedIn: !!state.users.password
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  { signIn }
+)(App);
