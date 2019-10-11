@@ -3,8 +3,15 @@ import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { connect } from 'react-redux';
 import { signUp } from '../../redux/actions/userActions';
+import { getToken } from '../../api';
 
 export class Registration extends React.Component {
+  componentDidMount() {
+    if (getToken()) {
+      this.props.history.replace('/weather');
+    }
+  }
+
   state = {
     username: '',
     email: '',

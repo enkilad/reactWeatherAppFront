@@ -31,3 +31,11 @@ export const getUser = id => async dispatch => {
 
   dispatch({ type: GET_USER, payload: response.data });
 };
+
+// export const getUser = (id, email) => async dispatch => {
+//   const response =
+//     (await axiosClient.get(`/users/${id}`)) &&
+//     axiosClient.get(`/users/${email}`);
+
+//   dispatch({ type: GET_USER, payload: response.data });
+// };

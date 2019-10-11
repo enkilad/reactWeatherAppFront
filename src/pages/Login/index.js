@@ -3,8 +3,15 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { signIn } from '../../redux/actions/userActions';
+import { getToken } from '../../api';
 
 class Login extends React.Component {
+  componentDidMount() {
+    if (getToken()) {
+      this.props.history.replace('/weather');
+    }
+  }
+
   state = {
     email: '',
     password: ''
@@ -30,7 +37,7 @@ class Login extends React.Component {
         email: this.state.email,
         password: this.state.password
       };
-  
+
       await this.props.signIn(formValues);
       this.props.history.replace('/weather');
     } catch (error) {

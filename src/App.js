@@ -14,7 +14,10 @@ class App extends React.Component {
     return (
       <div className="container">
         <Router>
-          {getToken() && <Navbar />} {/* works only after a page reload */}
+          {{
+            /* getToken()  */
+          } && <Navbar />}
+          {/* works only after a page reload */}
           <Switch>
             <Route component={Registration} path="/" exact />
             <Route component={Weather} path="/weather" />

@@ -32,7 +32,9 @@ class Profile extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { user: state.users };
+  return {
+    user: state.users
+  };
 };
 
 const actions = { getUser };

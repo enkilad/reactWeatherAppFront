@@ -1,8 +1,8 @@
 import { GET_HISTORYLIST } from './types';
 import { axiosClient } from '../../api';
 
-export const getHistoryList = data => async dispatch => {
-  await axiosClient.post('/history', {
+export const getHistoryList = (id, data) => async dispatch => {
+  await axiosClient.get(`/history/${id}`, {
     replaceMe: 'data.replaceMe'
   });
 
