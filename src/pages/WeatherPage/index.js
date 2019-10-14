@@ -2,13 +2,14 @@ import React from 'react';
 import Autocomplete from 'react-google-autocomplete';
 import { connect } from 'react-redux';
 import { getToken } from '../../api';
-import { getWeather } from '../../redux/actions/weatherActions';
+import { getWeather, getHistory } from '../../redux/actions/weatherActions';
 
 class Weather extends React.PureComponent {
   componentDidMount() {
     if (!getToken()) {
       this.props.history.replace('/');
     }
+    // this.props.getHistory();
   }
 
   render() {
@@ -54,7 +55,7 @@ const mapStateToProps = state => ({
   weatherList: state.weather.weatherList
 });
 
-const actions = { getWeather };
+const actions = { getWeather, getHistory };
 
 export default connect(
   mapStateToProps,
