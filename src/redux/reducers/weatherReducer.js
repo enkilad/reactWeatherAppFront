@@ -2,7 +2,7 @@ import { GET_WEATHER } from '../actions/types';
 
 const INITIAL_STATE = {
   city: '',
-  weather: { list: [] },
+  weatherList: [],
   createdAtTime: null
 };
 
@@ -12,7 +12,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         city: action.payload.city,
-        weather: action.payload.weather,
+        weatherList: action.payload.weatherList,
         createdAtTime: new Date()
       };
     default:

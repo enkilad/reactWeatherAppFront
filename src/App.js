@@ -11,7 +11,7 @@ import Navbar from './shared/Navbar';
 import { signIn } from './redux/actions/userActions';
 import { connect } from 'react-redux';
 
-class App extends React.Component {
+class App extends React.PureComponent {
   componentDidMount() {}
   render() {
     return (

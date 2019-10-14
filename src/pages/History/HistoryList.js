@@ -1,20 +1,22 @@
 import React from 'react';
 import { getToken } from '../../api';
 import { connect } from 'react-redux';
-import { getHistory } from '../../redux/actions/weatherActions';
+import { getHistoryList } from '../../redux/actions/historyListActions';
 
 class HistoryList extends React.PureComponent {
   componentDidMount() {
     if (!getToken()) {
       return this.props.history.replace('/');
     }
-    this.props.getHistory();
+    this.props.getHistoryList();
   }
   render() {
     console.log(this.props.historyList);
     return (
       <div>
-        <p>HistoryList Page</p>
+        <ul className="list-group list-unstyled text-center">
+          Request History List
+        </ul>
       </div>
     );
   }
@@ -28,5 +30,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { getHistory }
+  { getHistoryList }
 )(HistoryList);

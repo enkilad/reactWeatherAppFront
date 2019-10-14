@@ -5,7 +5,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { signIn } from '../../redux/actions/userActions';
 import { getToken } from '../../api';
 
-class Login extends React.Component {
+class Login extends React.PureComponent {
   componentDidMount() {
     if (getToken()) {
       this.props.history.replace('/weather');

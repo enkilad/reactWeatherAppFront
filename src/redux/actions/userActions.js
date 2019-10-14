@@ -13,6 +13,7 @@ export const signUp = formValues => async dispatch => {
 
 export const signIn = formValues => async dispatch => {
   const response = await axiosClient.post('/login', {
+    username: formValues.username,
     email: formValues.email,
     password: formValues.password
   });

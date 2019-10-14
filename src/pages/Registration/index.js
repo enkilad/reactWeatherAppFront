@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { signUp } from '../../redux/actions/userActions';
 import { getToken } from '../../api';
 
-export class Registration extends React.Component {
+export class Registration extends React.PureComponent {
   componentDidMount() {
     if (getToken()) {
       this.props.history.replace('/weather');

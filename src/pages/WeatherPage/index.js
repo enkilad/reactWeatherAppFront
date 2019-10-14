@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getToken } from '../../api';
 import { getWeather } from '../../redux/actions/weatherActions';
 
-class Weather extends React.Component {
+class Weather extends React.PureComponent {
   componentDidMount() {
     if (!getToken()) {
       this.props.history.replace('/');
@@ -22,7 +22,7 @@ class Weather extends React.Component {
             }
             const lat = place.geometry.location.lat();
             const lng = place.geometry.location.lng();
-            this.props.getWeather(lat, lng, place.formatted_adress);
+            this.props.getWeather(lat, lng, place.formatted_address);
           }}
         />
         <table className="table">
@@ -51,7 +51,7 @@ class Weather extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  weatherList: state.weather.weather.list
+  weatherList: state.weather.weatherList
 });
 
 const actions = { getWeather };

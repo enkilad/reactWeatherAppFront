@@ -25,7 +25,7 @@ const LinkStyled = styled(Link)`
   }
 `;
 
-export default class Example extends React.Component {
+export default class Example extends React.PureComponent {
   state = {
     isOpen: false
   };

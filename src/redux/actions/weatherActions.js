@@ -10,14 +10,14 @@ const getWeatherApi = (lat, lng) => {
 export const getHistory = () => async (dispatch, getState) => {
   const state = getState();
   // const id = state.users.id;
-  const id = '5d97c6a319d0c31ec86b750b';
-  const data = await axiosClient.get('/history', {
-    user: { id }
+  // const id = '5d97c6a319d0c31ec86b750b';
+  const response = await axiosClient.post('/history', {
+    // user: { id }
+    city: state.weather.city,
+    weatherList: state.weather.weatherList,
+    createdAtTime: state.weather.createdAtTime
   });
-  dispatch({
-    type: GET_HISTORYLIST,
-    payload: data
-  });
+  dispatch({ type: GET_HISTORYLIST, payload: response.data }); // u stopped here!!!
 };
 
 export const getWeather = (lat, lng, city) => async (dispatch, getState) => {
@@ -32,24 +32,19 @@ export const getWeather = (lat, lng, city) => async (dispatch, getState) => {
     if (+temp > 0) {
       temp = `+${temp}`;
     }
+
     return { temp, date, weather };
   });
 
-  const id = state.users.id;
+  // const id = state.users.id;
 
-  await axiosClient.post('/history', {
-    user: { id },
-    data: { city, list: '' }
-  });
+  // await axiosClient.post(`/history`, {
+  //   user: { id },
+  //   data: { city, list: '' }
+  // });
 
   dispatch({
     type: GET_WEATHER,
-    payload: {
-      weather: {
-        ...response.data,
-        list
-      },
-      city
-    }
+    payload: { weatherList: list, city }
   });
 };

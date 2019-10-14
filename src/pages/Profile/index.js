@@ -4,7 +4,7 @@ import { EditButton } from '../../shared/EditButton';
 import { getUser } from '../../redux/actions/userActions';
 import { getToken } from '../../api';
 
-class Profile extends React.Component {
+class Profile extends React.PureComponent {
   componentDidMount() {
     if (!getToken()) {
       this.props.history.replace('/');
