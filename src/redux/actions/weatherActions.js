@@ -1,11 +1,8 @@
 import { GET_WEATHER, GET_HISTORYLIST } from './types';
 import { axiosWeatherClient, axiosClient } from '../../api';
 import { getToken } from '../../api/index';
-import jwt_decode from 'jwt-decode';
 
-// const token = getToken();
-
-const token = jwt_decode(getToken());
+const token = getToken();
 
 const getWeatherApi = (lat, lng) => {
   return axiosWeatherClient.get(
@@ -15,13 +12,22 @@ const getWeatherApi = (lat, lng) => {
 
 export const createHistory = () => async (dispatch, getState) => {
   const state = getState();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  };
   console.log('token', token);
-  const response = await axiosClient.post('/history', {
-    user: token,
-    city: state.weather.city,
-    weatherList: state.weather.weatherList,
-    createdAtTime: state.weather.createdAtTime
-  });
+  const response = await axiosClient.post(
+    '/history',
+    {
+      user: token,
+      city: state.weather.city,
+      weatherList: state.weather.weatherList,
+      createdAtTime: state.weather.createdAtTime
+    },
+    config
+  );
   console.log('response.data', response.data);
 
   dispatch({ type: GET_HISTORYLIST, payload: response.data });
