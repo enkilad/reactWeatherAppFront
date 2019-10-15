@@ -6,13 +6,12 @@ import Login from './pages/Login';
 import HistoryList from './pages/History/HistoryList';
 import HistoryDetails from './pages/History/HistoryDetails';
 import { ProfilePage } from './pages/Profile';
-import { getToken } from './api';
+// import { getToken } from './api';
 import Navbar from './shared/Navbar';
 import { signIn } from './redux/actions/userActions';
 import { connect } from 'react-redux';
 
 class App extends React.PureComponent {
-  componentDidMount() {}
   render() {
     return (
       <div className="container">

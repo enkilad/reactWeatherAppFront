@@ -5,25 +5,52 @@ import { getUser } from '../../redux/actions/userActions';
 import { getToken } from '../../api';
 
 class Profile extends React.PureComponent {
+  state = {
+    username: '',
+    password: ''
+  };
+
   componentDidMount() {
     if (!getToken()) {
       this.props.history.replace('/');
     }
   }
 
+  changeUsername = e => {
+    this.setState({ username: e.target.value });
+  };
+
+  changePassword = e => {
+    this.setState({ password: e.target.value });
+  };
+
   render() {
     const { user } = this.props;
     return (
       <div className="d-flex flex-column align-items-center">
         <div>
-          <span>Email: {user.email}</span>
+          <label htmlFor="email">Email: {user.email}</label>
         </div>
         <div>
-          <span>Username: {user.username}</span>
+          <label htmlFor="username">Username: {user.username}</label>
+          <input
+            type="text"
+            id="username"
+            // className="d-none"
+            value={user.username}
+            onChange={this.changeUsername}
+          />
           <EditButton />
         </div>
         <div>
-          <span>Password</span>
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            // className="d-none"
+            value={user.password}
+            onChange={this.changePassword}
+          />
           <EditButton />
         </div>
       </div>

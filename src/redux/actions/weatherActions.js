@@ -1,6 +1,11 @@
 import { GET_WEATHER, GET_HISTORYLIST } from './types';
 import { axiosWeatherClient, axiosClient } from '../../api';
 import { getToken } from '../../api/index';
+import jwt_decode from 'jwt-decode';
+
+// const token = getToken();
+
+const token = jwt_decode(getToken());
 
 const getWeatherApi = (lat, lng) => {
   return axiosWeatherClient.get(
@@ -8,30 +13,22 @@ const getWeatherApi = (lat, lng) => {
   );
 };
 
-const token = getToken();
-
-const someFunc = async state => {
+export const createHistory = () => async (dispatch, getState) => {
+  const state = getState();
   console.log('token', token);
-  await axiosClient.post('/history', {
+  const response = await axiosClient.post('/history', {
     user: token,
     city: state.weather.city,
     weatherList: state.weather.weatherList,
     createdAtTime: state.weather.createdAtTime
   });
-};
-
-export const getHistory = () => async (dispatch, getState) => {
-  const state = getState();
-  const response = someFunc(state);
   console.log('response.data', response.data);
-  // const id = state.users.id;
-  // const id = '5d97c6a319d0c31ec86b750b';
 
-  dispatch({ type: GET_HISTORYLIST, payload: response.data }); // u stopped here!!!
+  dispatch({ type: GET_HISTORYLIST, payload: response.data });
 };
 
 export const getWeather = (lat, lng, city) => async (dispatch, getState) => {
-  const state = getState();
+  // const state = getState();
 
   const response = await getWeatherApi(lat, lng);
 
@@ -46,11 +43,11 @@ export const getWeather = (lat, lng, city) => async (dispatch, getState) => {
     return { temp, date, weather };
   });
 
-  // const id = state.users.id;
+  // const id = token;
 
   // await axiosClient.post(`/history`, {
   //   user: { id },
-  //   data: { city, list: '' }
+  //   data: { city: '', list: '' }
   // });
 
   dispatch({

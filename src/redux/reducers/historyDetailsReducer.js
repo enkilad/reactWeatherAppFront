@@ -9,7 +9,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_HISTORYDETAILS: {
       return {
         ...state,
-        data: action.payload.data
+        data: action.payload
       };
     }
     default:

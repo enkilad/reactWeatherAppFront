@@ -4,7 +4,6 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   Button
@@ -45,9 +44,9 @@ export default class Example extends React.PureComponent {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand>
-            <LinkStyled to="/">React Weather App</LinkStyled>
-          </NavbarBrand>
+          <LinkStyled to="/" style={{ fontSize: 20 }}>
+            React Weather App
+          </LinkStyled>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>

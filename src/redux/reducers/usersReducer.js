@@ -1,4 +1,4 @@
-import { SIGN_IN, SIGN_OUT, SIGN_UP, GET_USER } from '../actions/types';
+import { SIGN_IN, SIGN_OUT, GET_USER } from '../actions/types'; // SIGN_UP
 
 const INITIAL_STATE = {
   email: '',
