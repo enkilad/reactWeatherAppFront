@@ -24,19 +24,19 @@ class Weather extends React.PureComponent {
             const lng = place.geometry.location.lng();
             (async () => {
               await this.props.getWeather(lat, lng, place.formatted_address);
-              await this.props.createHistory();
+              this.props.createHistory();
             })();
           }}
         />
-        <table className="table">
-          <thead className="thead-dark">
+        <table className="table table-hover">
+          <thead className="">
             <tr>
               <th>Date</th>
               <th>Temperature</th>
               <th>Condition</th>
             </tr>
           </thead>
-          <tbody id="weather-table">
+          <tbody>
             {this.props.weatherList.map(({ date, temp, weather }, id) => {
               return (
                 <tr key={id}>

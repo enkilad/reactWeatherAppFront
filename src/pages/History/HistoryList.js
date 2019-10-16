@@ -2,6 +2,7 @@ import React from 'react';
 import { getToken } from '../../api';
 import { connect } from 'react-redux';
 import { getHistoryList } from '../../redux/actions/historyListActions';
+import { Link } from 'react-router-dom';
 
 class HistoryList extends React.PureComponent {
   componentDidMount() {
@@ -10,12 +11,29 @@ class HistoryList extends React.PureComponent {
     }
     this.props.getHistoryList();
   }
+
+  renderHistory() {
+    if (this.props.historyList == null) {
+      return;
+    } else {
+      return this.props.historyList.map(({ _id, createdAtTime, city }) => {
+        return (
+          <li className="list-group-item" key={_id}>
+            <Link to="/history-details">
+              {createdAtTime} {city}
+            </Link>
+          </li>
+        );
+      });
+    }
+  }
+
   render() {
-    console.log(this.props.historyList);
+    console.log('HistoryList', this.props.historyList);
     return (
       <div>
-        <ul className="list-group list-unstyled text-center">
-          Request History List
+        <ul className="list-group">
+          {this.renderHistory()}
         </ul>
       </div>
     );
@@ -24,7 +42,7 @@ class HistoryList extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    historyList: state.historyList
+    historyList: state.historyList.data
   };
 };
 

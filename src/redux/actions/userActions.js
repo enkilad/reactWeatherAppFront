@@ -1,5 +1,6 @@
 import { SIGN_IN, SIGN_OUT, SIGN_UP, GET_USER } from './types';
 import { axiosClient, setToken } from '../../api';
+// import history from '../../history';
 
 export const signUp = formValues => async dispatch => {
   await axiosClient.post('/register', {
@@ -24,6 +25,9 @@ export const signIn = formValues => async dispatch => {
 };
 
 export const signOut = () => async dispatch => {
+  localStorage.clear();
+  // this.props.history.replace('/');
+
   dispatch({ type: SIGN_OUT });
 };
 

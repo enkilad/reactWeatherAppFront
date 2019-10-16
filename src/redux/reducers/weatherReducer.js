@@ -19,7 +19,7 @@ export default (state = INITIAL_STATE, action) => {
     case GET_HISTORYLIST:
       return {
         ...state,
-        historyData: action.payload // []
+        historyData: [action.payload] // []
       };
     default:
       return state;

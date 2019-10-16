@@ -9,7 +9,8 @@ import {
   Button
 } from 'reactstrap';
 import styled from 'styled-components';
-import history from '../history';
+import { signOut } from '../redux/actions/userActions';
+import { connect } from 'react-redux';
 
 const NavItemStyled = styled(NavItem)`
   padding: 0.5rem;
@@ -24,7 +25,7 @@ const LinkStyled = styled(Link)`
   }
 `;
 
-export default class Example extends React.PureComponent {
+export class NavbarMenu extends React.PureComponent {
   state = {
     isOpen: false
   };
@@ -36,8 +37,7 @@ export default class Example extends React.PureComponent {
   };
 
   onLogOut = () => {
-    localStorage.clear();
-    history.replace('/');
+    this.props.signOut();
   };
 
   render() {
@@ -72,3 +72,8 @@ export default class Example extends React.PureComponent {
     );
   }
 }
+
+export default connect(
+  null,
+  { signOut }
+)(NavbarMenu);
