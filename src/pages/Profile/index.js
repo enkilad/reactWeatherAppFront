@@ -14,14 +14,19 @@ class Profile extends React.PureComponent {
     if (!getToken()) {
       this.props.history.replace('/');
     }
+    this.props.getUser();
   }
 
-  changeUsername = e => {
-    this.setState({ username: e.target.value });
+  onChangeUsername = e => {
+    this.setState({
+      username: e.target.value
+    });
   };
 
-  changePassword = e => {
-    this.setState({ password: e.target.value });
+  onChangePassword = e => {
+    this.setState({
+      password: e.target.value
+    });
   };
 
   render() {
@@ -29,28 +34,28 @@ class Profile extends React.PureComponent {
     return (
       <div className="d-flex flex-column align-items-center">
         <div>
-          <label htmlFor="email">Email: {user.email}</label>
+          <label htmlFor="email">Email: {this.props.user.username}</label>
         </div>
         <div>
-          <label htmlFor="username">Username: {user.username}</label>
-          <input
+          <label htmlFor="username">Username: </label>
+          {/* <input
             type="text"
             id="username"
-            // className="d-none"
+            className="d-none"
             value={user.username}
-            onChange={this.changeUsername}
-          />
+            onChange={this.onChangeUsername}
+          /> */}
           <EditButton />
         </div>
         <div>
           <label htmlFor="password">Password</label>
-          <input
+          {/* <input
             type="password"
             id="password"
-            // className="d-none"
+            className="d-none"
             value={user.password}
-            onChange={this.changePassword}
-          />
+            onChange={this.onChangePassword}
+          /> */}
           <EditButton />
         </div>
       </div>
@@ -60,13 +65,11 @@ class Profile extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    user: state.users
+    user: state.user.userData
   };
 };
 
-const actions = { getUser };
-
 export const ProfilePage = connect(
   mapStateToProps,
-  actions
+  { getUser }
 )(Profile);

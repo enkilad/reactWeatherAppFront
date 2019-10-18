@@ -1,6 +1,9 @@
 import { SIGN_IN, SIGN_OUT, SIGN_UP, GET_USER } from './types';
 import { axiosClient, setToken } from '../../api';
 // import history from '../../history';
+import { getToken } from '../../api/index';
+
+const token = getToken();
 
 export const signUp = formValues => async dispatch => {
   await axiosClient.post('/register', {
@@ -26,21 +29,20 @@ export const signIn = formValues => async dispatch => {
 
 export const signOut = () => async dispatch => {
   localStorage.clear();
-  // this.props.history.replace('/');
+  this.props.history.replace('/');
 
   dispatch({ type: SIGN_OUT });
 };
 
-export const getUser = id => async dispatch => {
-  const response = await axiosClient.get(`/users/${id}`);
+export const getUser = () => async dispatch => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  };
+  const response = await axiosClient.get(`/user`, config);
+  console.log(response.data);
+  console.log(response.data.user[0]);
 
-  dispatch({ type: GET_USER, payload: response.data });
+  dispatch({ type: GET_USER, payload: response.data.user[0] });
 };
-
-// export const getUser = (id, email) => async dispatch => {
-//   const response =
-//     (await axiosClient.get(`/users/${id}`)) &&
-//     axiosClient.get(`/users/${email}`);
-
-//   dispatch({ type: GET_USER, payload: response.data });
-// };

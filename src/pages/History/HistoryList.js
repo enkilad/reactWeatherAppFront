@@ -2,7 +2,7 @@ import React from 'react';
 import { getToken } from '../../api';
 import { connect } from 'react-redux';
 import { getHistoryList } from '../../redux/actions/historyListActions';
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 class HistoryList extends React.PureComponent {
   componentDidMount() {
@@ -13,15 +13,15 @@ class HistoryList extends React.PureComponent {
   }
 
   renderHistory() {
-    if (this.props.historyList == null) {
+    if (!this.props.historyList) {
       return;
     } else {
       return this.props.historyList.map(({ _id, createdAtTime, city }) => {
         return (
           <li className="list-group-item" key={_id}>
-            <Link to="/history-details">
+            <HashLink to={`/history-details#${_id}`}>
               {createdAtTime} {city}
-            </Link>
+            </HashLink>
           </li>
         );
       });
@@ -32,9 +32,7 @@ class HistoryList extends React.PureComponent {
     console.log('HistoryList', this.props.historyList);
     return (
       <div>
-        <ul className="list-group">
-          {this.renderHistory()}
-        </ul>
+        <ul className="list-group">{this.renderHistory()}</ul>
       </div>
     );
   }

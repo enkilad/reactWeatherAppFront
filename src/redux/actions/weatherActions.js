@@ -1,4 +1,4 @@
-import { GET_WEATHER, GET_HISTORYLIST } from './types';
+import { GET_WEATHER, CREATE_HISTORYLIST } from './types';
 import { axiosWeatherClient, axiosClient } from '../../api';
 import { getToken } from '../../api/index';
 
@@ -10,32 +10,7 @@ const getWeatherApi = (lat, lng) => {
   );
 };
 
-export const createHistory = () => async (dispatch, getState) => {
-  const state = getState();
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  };
-  console.log('token', token);
-  const response = await axiosClient.post(
-    '/history',
-    {
-      user: token,
-      city: state.weather.city,
-      weatherList: state.weather.weatherList,
-      createdAtTime: state.weather.createdAtTime
-    },
-    config
-  );
-  console.log('response.data', response.data);
-
-  dispatch({ type: GET_HISTORYLIST, payload: response.data });
-};
-
-export const getWeather = (lat, lng, city) => async (dispatch, getState) => {
-  // const state = getState();
-
+export const getWeather = (lat, lng, city) => async dispatch => {
   const response = await getWeatherApi(lat, lng);
 
   const list = response.data.list.map(obj => {
@@ -49,15 +24,31 @@ export const getWeather = (lat, lng, city) => async (dispatch, getState) => {
     return { temp, date, weather };
   });
 
-  // const id = token;
-
-  // await axiosClient.post(`/history`, {
-  //   user: { id },
-  //   data: { city: '', list: '' }
-  // });
-
   dispatch({
     type: GET_WEATHER,
     payload: { weatherList: list, city }
   });
+};
+
+export const createHistory = () => async (dispatch, getState) => {
+  const state = getState();
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  };
+  // console.log('token', token);
+  const response = await axiosClient.post(
+    '/history',
+    {
+      user: token,
+      city: state.weather.city,
+      weatherList: state.weather.weatherList,
+      createdAtTime: state.weather.createdAtTime
+    },
+    config
+  );
+  // console.log('response.data', response.data);
+
+  dispatch({ type: CREATE_HISTORYLIST, payload: response.data });
 };

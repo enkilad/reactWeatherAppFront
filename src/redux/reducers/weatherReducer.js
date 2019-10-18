@@ -1,10 +1,10 @@
-import { GET_WEATHER, GET_HISTORYLIST } from '../actions/types';
+import { GET_WEATHER, CREATE_HISTORYLIST } from '../actions/types';
 
 const INITIAL_STATE = {
   city: '',
   weatherList: [],
   createdAtTime: null,
-  historyData: []
+  historyData: null
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -16,10 +16,10 @@ export default (state = INITIAL_STATE, action) => {
         weatherList: action.payload.weatherList,
         createdAtTime: new Date()
       };
-    case GET_HISTORYLIST:
+    case CREATE_HISTORYLIST:
       return {
         ...state,
-        historyData: [action.payload] // []
+        historyData: action.payload
       };
     default:
       return state;

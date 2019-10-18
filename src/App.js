@@ -35,7 +35,7 @@ class App extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    isUserLoggedIn: !!state.users.password
+    isUserLoggedIn: !!state.user.password
   };
 };
 

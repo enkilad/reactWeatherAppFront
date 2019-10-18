@@ -6,7 +6,7 @@ import historyDetailsReducer from './historyDetailsReducer';
 
 export default combineReducers({
   weather: weatherReducer,
-  users: usersReducer,
+  user: usersReducer,
   historyList: historyListReducer,
   historyDetails: historyDetailsReducer
 });
