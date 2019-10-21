@@ -20,7 +20,9 @@ class HistoryDetails extends React.PureComponent {
           return (
             <li key={_id}>
               <div id={_id}>
-                {createdAtTime} {city}
+                <h4>
+                  {createdAtTime} {city}
+                </h4>
               </div>
               <table className="table table-hover">
                 <thead>

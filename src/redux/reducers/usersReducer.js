@@ -1,4 +1,11 @@
-import { SIGN_IN, SIGN_OUT, GET_USER, SIGN_UP } from '../actions/types';
+import {
+  SIGN_IN,
+  SIGN_OUT,
+  GET_USER,
+  SIGN_UP,
+  CHANGE_USERNAME,
+  CHANGE_PASSWORD
+} from '../actions/types';
 
 const INITIAL_STATE = {
   userData: null,
@@ -23,6 +30,13 @@ export default (state = INITIAL_STATE, action) => {
         // username: ''
         token: null
       };
+    case SIGN_UP:
+      return {
+        ...state,
+        userData: 'Sign up!'
+        // email: action.payload.email,
+        // password: action.payload.password
+      };
     case GET_USER:
       return {
         ...state,
@@ -31,12 +45,13 @@ export default (state = INITIAL_STATE, action) => {
         // password: action.payload.password,
         // username: action.payload.username
       };
-    case SIGN_UP:
+    case CHANGE_USERNAME:
       return {
-        ...state,
-        user: 'Sign up!'
-        // email: action.payload.email,
-        // password: action.payload.password
+        ...state
+      };
+    case CHANGE_PASSWORD:
+      return {
+        ...state
       };
     default:
       return state;
