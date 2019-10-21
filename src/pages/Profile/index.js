@@ -108,13 +108,13 @@ class Profile extends React.PureComponent {
         <UserField>
           <label>
             Email:
-            {/* {userData.e === null ? '' : userData.email} */}
+            {userData === null ? '' : userData.email}
           </label>
         </UserField>
 
         <UserField>
           <label htmlFor="username">
-            {/* Username: {userData === null ? '' : userData.username} */}
+            Username: {userData === null ? '' : userData.username}
           </label>
           <ButtonStyled onClick={this.showChangeUsernameInput}>
             {this.state.toggleChangeUsername === true
