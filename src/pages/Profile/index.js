@@ -46,7 +46,7 @@ class Profile extends React.PureComponent {
 
   onChangeUsername = e => {
     this.setState({
-      username: e.target.value
+      newUsername: e.target.value
     });
   };
 
