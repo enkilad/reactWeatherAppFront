@@ -106,20 +106,15 @@ class Profile extends React.PureComponent {
     return (
       <ProfilePageComponent>
         <UserField>
-          <label>
-            Email:
-            {userData === null ? '' : userData.email}
-          </label>
+          <label>Email: {userData.email || ''}</label>
         </UserField>
 
         <UserField>
           <label htmlFor="username">
-            Username: {userData === null ? '' : userData.username}
+            Username: {userData == null ? '' : userData.username}
           </label>
           <ButtonStyled onClick={this.showChangeUsernameInput}>
-            {this.state.toggleChangeUsername === true
-              ? 'Cancel'
-              : 'Change Username'}
+            {this.state.toggleChangeUsername ? 'Cancel' : 'Change Username'}
           </ButtonStyled>
         </UserField>
 
@@ -146,9 +141,7 @@ class Profile extends React.PureComponent {
         <UserField>
           <label htmlFor="password">Password</label>
           <ButtonStyled onClick={this.showChangePasswordInput}>
-            {this.state.toggleChangePassword === true
-              ? 'Cancel'
-              : 'Change Password'}
+            {this.state.toggleChangePassword ? 'Cancel' : 'Change Password'}
           </ButtonStyled>
         </UserField>
 
@@ -190,7 +183,8 @@ class Profile extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    userData: state.user.userData
+    userData: state.user.userData,
+    token: state.user.token
   };
 };
 

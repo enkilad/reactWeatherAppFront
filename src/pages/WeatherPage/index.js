@@ -16,20 +16,18 @@ class Weather extends React.PureComponent {
       <div>
         <Autocomplete
           className="form-control"
-          onPlaceSelected={place => {
+          onPlaceSelected={async place => {
             if (!place.geometry) {
               return;
             }
             const lat = place.geometry.location.lat();
             const lng = place.geometry.location.lng();
-            (async () => {
-              await this.props.getWeather(lat, lng, place.formatted_address);
-              this.props.createHistory();
-            })();
+            await this.props.getWeather(lat, lng, place.formatted_address);
+            this.props.createHistory();
           }}
         />
         <table className="table table-hover">
-          <thead className="">
+          <thead>
             <tr>
               <th>Date</th>
               <th>Temperature</th>

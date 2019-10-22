@@ -31,9 +31,7 @@ export class NavbarMenu extends React.PureComponent {
   };
 
   toggle = () => {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
+    this.setState(({isOpen}) => ({isOpen: !isOpen}));
   };
 
   onLogOut = () => {

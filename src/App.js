@@ -6,18 +6,17 @@ import Login from './pages/Login';
 import HistoryList from './pages/History/HistoryList';
 import HistoryDetails from './pages/History/HistoryDetails';
 import { ProfilePage } from './pages/Profile';
-// import { getToken } from './api';
 import Navbar from './shared/Navbar';
 import { signIn } from './redux/actions/userActions';
 import { connect } from 'react-redux';
+import { history } from './history';
 
 class App extends React.PureComponent {
   render() {
     return (
       <div className="container">
-        <Router>
-          {/* {this.props.isUserLoggedIn && */}
-          <Navbar />
+        <Router history={history}>
+          {this.props.isUserLoggedIn && <Navbar />}
           <Switch>
             <Route component={Registration} path="/" exact />
             <Route component={Weather} path="/weather" />
@@ -25,7 +24,6 @@ class App extends React.PureComponent {
             <Route component={HistoryList} path="/history-list" />
             <Route component={HistoryDetails} path="/history-details" />
             <Route component={ProfilePage} path="/profile" />
-            <Route path="City/:id" />
           </Switch>
         </Router>
       </div>
@@ -35,7 +33,7 @@ class App extends React.PureComponent {
 
 const mapStateToProps = state => {
   return {
-    isUserLoggedIn: !!state.user.password
+    isUserLoggedIn: !!state.user.token
   };
 };
 

@@ -9,7 +9,7 @@ import {
 
 const INITIAL_STATE = {
   userData: null,
-  token: null
+  token: localStorage.getItem('token')
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -17,33 +17,22 @@ export default (state = INITIAL_STATE, action) => {
     case SIGN_IN:
       return {
         ...state,
-        // email: action.payload.email,
-        // password: action.payload.password,
-        // username: action.payload.username
         token: localStorage.getItem('token')
       };
     case SIGN_OUT:
       return {
         ...state,
-        // email: '',
-        // password: '',
-        // username: ''
         token: null
       };
     case SIGN_UP:
       return {
         ...state,
         userData: 'Sign up!'
-        // email: action.payload.email,
-        // password: action.payload.password
       };
     case GET_USER:
       return {
         ...state,
         userData: action.payload
-        // email: action.payload.email,
-        // password: action.payload.password,
-        // username: action.payload.username
       };
     case CHANGE_USERNAME:
       return {
