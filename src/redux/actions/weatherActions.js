@@ -32,23 +32,13 @@ export const getWeather = (lat, lng, city) => async dispatch => {
 
 export const createHistory = () => async (dispatch, getState) => {
   const state = getState();
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  };
-  // console.log('token', token);
-  const response = await axiosClient.post(
-    '/history',
-    {
-      user: token,
-      city: state.weather.city,
-      weatherList: state.weather.weatherList,
-      createdAtTime: state.weather.createdAtTime
-    },
-    config
-  );
-  // console.log('response.data', response.data);
+
+  const response = await axiosClient.post('/history', {
+    user: token,
+    city: state.weather.city,
+    weatherList: state.weather.weatherList,
+    createdAtTime: state.weather.createdAtTime
+  });
 
   dispatch({ type: CREATE_HISTORYLIST, payload: response.data });
 };

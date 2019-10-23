@@ -8,6 +8,7 @@ import {
 import { getToken } from '../../api';
 import { Button } from 'reactstrap';
 import styled from 'styled-components';
+import { history } from '../../history';
 
 const ProfilePageComponent = styled.div`
   width: 45%;
@@ -39,15 +40,14 @@ class Profile extends React.PureComponent {
 
   componentDidMount() {
     if (!getToken()) {
-      this.props.history.replace('/');
+      history.replace('/');
     }
     this.props.getUser();
   }
 
   onChangeUsername = e => {
-    this.setState({
-      newUsername: e.target.value
-    });
+    const value = e.target.value;
+    this.setState(() => ({ newUsername: value }));
   };
 
   onChangeCurrentPassword = e => {
@@ -106,12 +106,13 @@ class Profile extends React.PureComponent {
     return (
       <ProfilePageComponent>
         <UserField>
-          <label>Email: {userData.email || ''}</label>
+          <label>Email: {userData && userData.email}</label>{' '}
+          {/* {'' || userData.email} */}
         </UserField>
 
         <UserField>
           <label htmlFor="username">
-            Username: {userData == null ? '' : userData.username}
+            Username: {userData && userData.username}
           </label>
           <ButtonStyled onClick={this.showChangeUsernameInput}>
             {this.state.toggleChangeUsername ? 'Cancel' : 'Change Username'}

@@ -6,16 +6,8 @@ import {
   CHANGE_USERNAME,
   CHANGE_PASSWORD
 } from './types';
-import { axiosClient, setToken, getToken } from '../../api';
+import { axiosClient, setToken } from '../../api';
 import { history } from '../../history';
-
-const token = getToken();
-
-const config = {
-  headers: {
-    Authorization: `Bearer ${token}`
-  }
-};
 
 export const signUp = formValues => async dispatch => {
   const response = await axiosClient.post('/register', {
@@ -47,32 +39,24 @@ export const signOut = () => async dispatch => {
 };
 
 export const getUser = () => async dispatch => {
-  const response = await axiosClient.get(`/user`, config);
+  const response = await axiosClient.get(`/user`);
 
   dispatch({ type: GET_USER, payload: response.data });
 };
 
 export const changeUsername = inputValues => async dispatch => {
-  const response = await axiosClient.post(
-    '/updateUsername',
-    {
-      newUsername: inputValues.newUsername
-    },
-    config
-  );
+  const response = await axiosClient.post('/updateUsername', {
+    newUsername: inputValues.newUsername
+  });
   console.log(response.data);
   dispatch({ type: CHANGE_USERNAME, payload: response.data });
 };
 
 export const changePassword = inputValues => async dispatch => {
-  const response = await axiosClient.post(
-    '/updatePassword',
-    {
-      currentPassword: inputValues.currentPassword,
-      newPassword: inputValues.newPassword
-    },
-    config
-  );
+  const response = await axiosClient.post('/updatePassword', {
+    currentPassword: inputValues.currentPassword,
+    newPassword: inputValues.newPassword
+  });
 
   dispatch({ type: CHANGE_PASSWORD, payload: response.data });
 };
